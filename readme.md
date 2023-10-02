@@ -1,6 +1,13 @@
 # Palm-powered-telegram-bot
 
-This repository contains code for a chatbot implemented in Python using the Telegram Bot API. The chatbot is designed to respond to user messages and provide assistance based on the input.
+This repository contains the source code for a versatile Telegram chatbot powered by AI. The chatbot, named yuna, provides intelligent responses to user queries and conversations. It's designed to facilitate engaging and informative interactions with users.
+
+## Key Features
+
+- User Authorization: yuna verifies user access based on their Telegram user IDs, ensuring that only authorized users can interact with the bot.
+- AI-Powered Responses: The chatbot leverages the PalmAI model to generate context-aware responses, making it capable of answering questions, providing explanations, and engaging in meaningful conversations.
+- Interactive Commands: Ayaka responds to commands like "/start" to provide a warm welcome and "/reset" to re-initialize the AI model for new conversations.
+- Message Chunking: To accommodate Telegram's message length limitations, the bot intelligently splits responses into smaller, manageable chunks for seamless communication.
 
 ## Prerequisites
 
