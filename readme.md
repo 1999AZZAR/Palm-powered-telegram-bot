@@ -1,4 +1,4 @@
-# bard-powered-telegram-bot
+# Palm-powered-telegram-bot
 
 This repository contains code for a chatbot implemented in Python using the Telegram Bot API. The chatbot is designed to respond to user messages and provide assistance based on the input.
 
