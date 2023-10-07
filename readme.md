@@ -24,20 +24,22 @@ To run the chatbot, ensure you have the following:
 3. Set up environment variables:
    - Create a `.env` file in the project directory.
    - Add the following variables to the `.env` file:
+    
      ```
      PALM_API_KEY=<your_palm_api_key>
      TELEGRAM_BOT_TOKEN=<your_telegram_bot_token>
      USER_ID=<your_user_id>
      ```
+     
      Replace `<your_bard_token>` with the token for your Bard chatbot and `<your_telegram_bot_token>` with the token for your Telegram bot. `<your_user_id>` should be replaced with your Telegram user ID.
-4. Run the chatbot by executing `python bot/main.py`.
+4. Run the chatbot by executing `python main.py`.
 
 ## File Structure
 
-The repository has the following structure:
+The bot should has the following structure:
 
 ```
-bot/
+chatbot/
   ├── palmai.py
   ├── helper.py
   ├── main.py
@@ -46,9 +48,10 @@ README.md
 requirements.txt
 ```
 
-- `bot/palmai.py`: Contains the implementation of the [`palm`](https://makersuite.google.com/app/apikey) class, which initializes the chatbot and processes user input to generate responses.
-- `bot/helper.py`: Provides a helper function `is_user` to check if a user is authorized to use the bot.
-- `bot/main.py`: The main file that sets up the Telegram bot, handles incoming messages, and triggers the chatbot for generating responses.
+- `palmai.py`: Contains the implementation of the [`palm`](https://makersuite.google.com/app/apikey) class, which initializes the chatbot and processes user input to generate responses.
+- `helper.py`: Provides a helper function `is_user` to check if a user is authorized to use the bot.
+- `main.py`: The main file that sets up the Telegram bot, handles incoming messages, and triggers the chatbot for generating responses.
+- u also can put the `.env` file inside the chatbot folder as well
 
 ## Flowchart
 
@@ -69,18 +72,19 @@ graph
 
 ## Usage
 
-1. Start the bot by running `python bot/main.py`.
+1. Start the bot by running `python main.py`.
 2. Open the Telegram app and search for your bot using the username you assigned to it during creation.
 3. Start a chat with the bot and interact with it by sending messages.
 4. The bot will process your input and provide a response based on the implemented logic.
 5. You can use the `/start` command to initiate a conversation with the bot.
 6. If you need to reset the chat history, you can use the `/reset` command.
+7. You can use the `/help` command to list all the command (trained model only).
 
 Note: The bot will only respond to authorized users whose Telegram user ID matches the one specified in the `.env` file.
 
 ## Customization
 
-You can customize the behavior and responses of the chatbot by modifying the code in `bot/palmai.py`. You can add new functionalities or change the logic to suit your requirements.
+You can customize the behavior and responses of the chatbot by modifying the code in `palmai.py`. You can add new functionalities or change the logic to suit your requirements.
 
 ## Contribution
 
