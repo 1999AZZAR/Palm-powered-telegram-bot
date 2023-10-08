@@ -1,13 +1,14 @@
-# Palm-powered-telegram-bot
+# bard-powered-telegram-bot
 
-This repository contains the source code for a versatile Telegram chatbot powered by AI. The chatbot, named yuna, provides intelligent responses to user queries and conversations. It's designed to facilitate engaging and informative interactions with users.
+This repository contains code for a chatbot implemented in Python using the Telegram Bot API. The chatbot is designed to respond to user messages and provide assistance based on the input.
 
-## Key Features
+Here, there are three iterations of the bot:
 
-- User Authorization: yuna verifies user access based on their Telegram user IDs, ensuring that only authorized users can interact with the bot.
-- AI-Powered Responses: The chatbot leverages the PalmAI model to generate context-aware responses, making it capable of answering questions, providing explanations, and engaging in meaningful conversations.
-- Interactive Commands: Ayaka responds to commands like "/start" to provide a warm welcome and "/reset" to re-initialize the AI model for new conversations.
-- Message Chunking: To accommodate Telegram's message length limitations, the bot intelligently splits responses into smaller, manageable chunks for seamless communication.
+- [Standard](https://github.com/1999AZZAR/Palm-powered-telegram-bot/tree/master/standart) (get model automatically)
+- [Chat model](https://github.com/1999AZZAR/Palm-powered-telegram-bot/tree/master/trained/chat-byson) (chat-byson tuned)
+- [Text mode](https://github.com/1999AZZAR/Palm-powered-telegram-bot/tree/master/trained/text-byson) (text-byson tuned)
+
+You can use any model as you wish.
 
 ## Prerequisites
 
@@ -24,34 +25,64 @@ To run the chatbot, ensure you have the following:
 3. Set up environment variables:
    - Create a `.env` file in the project directory.
    - Add the following variables to the `.env` file:
-    
-     ```
-     PALM_API_KEY=<your_palm_api_key>
-     TELEGRAM_BOT_TOKEN=<your_telegram_bot_token>
-     USER_ID=<your_user_id>
-     ```
-     
-     Replace `<your_bard_token>` with the token for your Bard chatbot and `<your_telegram_bot_token>` with the token for your Telegram bot. `<your_user_id>` should be replaced with your Telegram user ID.
-4. Run the chatbot by executing `python main.py`.
+
+    ```text
+    PALM_API_KEY=<your_palm_api_key> 
+    TELEGRAM_BOT_TOKEN=<your_telegram_bot_token> # your telegram bot api from @botfather
+    USER_ID=<your_user_id> # use comma for separation if u have more than 1 user
+    ```
+
+   - Replace `<your_bard_token>` with the token for your Bard chatbot and `<your_telegram_bot_token>` with the token for your Telegram bot. `<your_user_id>` should be replaced with your Telegram user ID.
+4. Run the chatbot by executing `python bot/main.py`.
+
+5. (optional) if u use my tuned model u can add this preset command to the bot using the @botfather, here the steps :
+
+   - use `/mybot` command on botfather
+   - select the bot u want to edit
+   - select `edit bot`
+   - select `edit command`
+   - send this to botfather :
+
+```text
+createch - Enter Createch Mode. 
+research - Enter Researcher Assistant Mode. 
+paraphrasing - Enter Paraphrasing Mode. 
+iomutation - Enter IO Mutation Mode. 
+normal - Enter Normal Chat Mode. 
+detailed - Ask for detail answer.
+simple - Ask for simple answer.
+start - Start Conversation with Yuna Ishikawa. 
+reset - Reset Yuna Ishikawa for re-initialization. 
+help - List All Commands
+```
 
 ## File Structure
 
-The bot should has the following structure:
+The repository has the following structure:
 
-```
-chatbot/
+```text
+bot/
   ├── palmai.py
   ├── helper.py
   ├── main.py
 .env
-README.md
+requirements.txt
+```
+
+or
+
+```text
+palmai.py
+helper.py
+main.py
+.env
 requirements.txt
 ```
 
 - `palmai.py`: Contains the implementation of the [`palm`](https://makersuite.google.com/app/apikey) class, which initializes the chatbot and processes user input to generate responses.
 - `helper.py`: Provides a helper function `is_user` to check if a user is authorized to use the bot.
 - `main.py`: The main file that sets up the Telegram bot, handles incoming messages, and triggers the chatbot for generating responses.
-- u also can put the `.env` file inside the chatbot folder as well
+- `.env`: All the key and secret data that are important for the bot to run and initialize correctly..
 
 ## Flowchart
 
@@ -78,13 +109,12 @@ graph
 4. The bot will process your input and provide a response based on the implemented logic.
 5. You can use the `/start` command to initiate a conversation with the bot.
 6. If you need to reset the chat history, you can use the `/reset` command.
-7. You can use the `/help` command to list all the command (trained model only).
 
 Note: The bot will only respond to authorized users whose Telegram user ID matches the one specified in the `.env` file.
 
 ## Customization
 
-You can customize the behavior and responses of the chatbot by modifying the code in `palmai.py`. You can add new functionalities or change the logic to suit your requirements.
+You can customize the behavior and responses of the chatbot by modifying the code in `palmai.py`. You can add new functionalities or change the logic to suit your requirements. Even you can change the model as you wish, and you can learn more about Palm 2 [here.](https://developers.generativeai.google/products/palm) and the models [here.](https://cloud.google.com/vertex-ai/docs/generative-ai/learn/models)
 
 ## Contribution
 
