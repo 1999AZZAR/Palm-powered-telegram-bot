@@ -32,7 +32,9 @@ To run the chatbot, ensure you have the following:
     USER_ID=<your_user_id> # use comma for separation if u have more than 1 user
     ```
 
-   - Replace `<your_bard_token>` with the token for your Bard chatbot and `<your_telegram_bot_token>` with the token for your Telegram bot. `<your_user_id>` should be replaced with your Telegram user ID.
+   - Replace `<your_bard_token>` with the token for your Bard chatbot
+   - Replace `<your_telegram_bot_token>` with the token for your Telegram bot.
+   - Replace `<your_user_id>` your Telegram user ID, u can use comma for separation if u want to be able using it with multiple user or simply replace with `*` if u want to disable the user auth process.
 4. Run the chatbot by executing `python bot/main.py`.
 
 5. (optional) if u use my tuned model u can add this preset command to the bot using the @botfather, here the steps :

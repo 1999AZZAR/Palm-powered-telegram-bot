@@ -1,4 +1,4 @@
-# chat model byson
+# chat model byson 001
 
 Fine-tuned for multi-turn conversation use cases.
 

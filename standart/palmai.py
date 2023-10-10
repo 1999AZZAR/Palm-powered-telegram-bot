@@ -45,5 +45,5 @@ class PalmAI:
         """Reset the PalmAI instance, allowing re-initialization."""
         self.__class__._instance = None
 
-# Create a singleton instance of PalmAI
+# Create a singleton instance of PalmAI 
 palm_ai_instance = PalmAI()

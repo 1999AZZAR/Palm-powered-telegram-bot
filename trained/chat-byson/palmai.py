@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 
 class PalmAI:
-    _instance = None  # Singleton instance
+    _instance = None  # Singleton instance 
 
     def __new__(cls):
         if cls._instance is None:

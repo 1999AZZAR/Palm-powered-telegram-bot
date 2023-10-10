@@ -63,7 +63,7 @@ def send_message(update, context, message):
     for chunk in chunks:
         # Log the message content before sending
         print(f"Got response: {chunk}")
-        chunk = re.sub(r'\bPalm ai\b', 'yuna ishikawa', chunk, flags=re.IGNORECASE)
+        chunk = re.sub(r"\bI am a large language model\b", "I am Yuna Ishikawa", chunk, flags=re.IGNORECASE)
 
         try:
             # Attempt to send the message with parse_mode="MARKDOWN"
