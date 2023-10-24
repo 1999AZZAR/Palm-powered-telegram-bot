@@ -14,7 +14,6 @@ iomutation - Enter IO Mutation Mode.
 normal - Enter Normal Chat Mode.
 detailed - Asking detailed answer.
 simple - Asking simple answer.
-json - Answer using json format.
 start - Start Conversation with Yuna Ishikawa.
 help - show this help menu.
 reset - Reset Yuna Ishikawa for re-initialization.
