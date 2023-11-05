@@ -58,13 +58,13 @@ class Helper:
                         tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
                 else:
                     text = last_response[0]
-                    tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
+                    tts = gTTS(text=text, lang='ja', slow=False)
             except:
                 text = last_response[0]
-                tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
+                tts = gTTS(text=text, lang='ja', slow=False)
         if last_response[0] is None:
-            text = "There has been no response prior to this moment."
-            tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
+            text = "これまでに応答はありません。"
+            tts = gTTS(text=text, lang='ja', slow=False)
         tts.save('response.mp3')
         audio = AudioSegment.from_file("response.mp3", format="mp3")
         speedup = audio.speedup(playback_speed=1.22)

@@ -80,7 +80,7 @@ class BotHandler:
         user_id = update.message.from_user.id
         last_response = message
         logging.info(f"{last_response}")
-        self.user_last_responses[user_id] = last_response
+        self.user_last_responses[user_id] = last_response 
         message = message[0]
         try:
             if message is not None:
@@ -94,22 +94,28 @@ class BotHandler:
                     message = [f"申し訳ありませんが、予期しない問題が発生しました。ご希望であれば、後で問い合わせることができます。"]
                     self.send_message(update, context, message)
             reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🔊 ボイス", callback_data="tts")]])
-            context.bot.send_message(chat_id=update.effective_chat.id, text="______", reply_markup=reply_markup)
+            context.bot.send_message(chat_id=update.effective_chat.id, text="____", reply_markup=reply_markup)
         except:
             message = [f"申し訳ありませんが、予期しない問題が発生しました。ご希望であれば、後で問い合わせることができます。"]
             self.send_message(update, context, message)
 
         def button_click(update, context):
             query = update.callback_query
-            logging.info(f"asking for tts answer")
+            user_id = query.from_user.id
+            logging.info("asking for tts answer")
             if query.data == 'tts':
-                last_response = self.user_last_responses.get(user_id, ["", ""])
-                self.send_chat_action(update, context, ChatAction.RECORD_AUDIO)
-                self.helper.tts(last_response)
-                self.send_chat_action(update, context, ChatAction.UPLOAD_AUDIO)
-                context.bot.send_voice(chat_id=update.effective_chat.id, voice=open('voice.mp3', 'rb'))
-                os.remove('voice.mp3')
-                logging.info(f"tts done")
+                if user_id in self.user_last_responses:
+                    last_response = self.user_last_responses[user_id]
+                    self.send_chat_action(update, context, ChatAction.RECORD_AUDIO)
+                    self.helper.tts(last_response)
+                    self.send_chat_action(update, context, ChatAction.UPLOAD_AUDIO)
+                    context.bot.send_voice(chat_id=query.message.chat_id, voice=open('voice.mp3', 'rb'))
+                    os.remove('voice.mp3')
+                    logging.info("TTS done")
+                else:
+                    context.bot.send_message(chat_id=query.message.chat_id, text="No previous response to convert to TTS.")
+            else:
+                context.bot.send_message(chat_id=query.message.chat_id, text="Unknown button click.")
         self.dispatcher.add_handler(CallbackQueryHandler(button_click))
 
     def help_command(self, update, context):
