@@ -3,7 +3,7 @@ import os
 
 # Load environment variables
 from dotenv import load_dotenv
-load_dotenv('/media/azzar/Betha/Download/project/telegram bot/yuna/yuna v2/.env')
+load_dotenv('path_to_your_env_file')
 
 class PalmAI:
     _instance = None  # Singleton instance

@@ -4,7 +4,7 @@ import os
 
 # Load environment variables
 from dotenv import load_dotenv
-load_dotenv('.env')
+load_dotenv('path_to_your_env_file')
 
 def is_user(user_id):
     # Read the user IDs from .env file

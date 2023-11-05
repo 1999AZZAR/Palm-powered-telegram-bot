@@ -1,11 +1,14 @@
 # bot/palmai.py
 
-import google.generativeai as palm
 import os
+import google.generativeai as palm
 from dotenv import load_dotenv
 
+# Load credentials from a .env file
+load_dotenv('path_to_your_env_file')
+
 class PalmAI:
-    _instance = None  # Singleton instance 
+    _instance = None  # Singleton instance
 
     def __new__(cls):
         if cls._instance is None:
@@ -14,12 +17,7 @@ class PalmAI:
         return cls._instance
 
     def _initialize_palm(self):
-        # Load credentials from a .env file
-        load_dotenv('/media/azzar/Betha/Download/project/telegram bot/yuna/yuna v1/chat mode/.env')
-
-        # Read API key from the environment variable
         api_key = os.getenv('PALM_API_KEY')
-
         palm.configure(api_key=api_key)
 
     def generate_response(self, user_input):
@@ -58,24 +56,22 @@ class PalmAI:
                 "Hi! I'm a text editor that can help you with your writing. I can suggest better words or phrases, correct grammar and spelling errors, organize your thoughts and ideas, find information from the internet, and generate new ideas. I can also help you with your research by finding relevant information, summarizing information, and creating citations.\n\nI will be following your instructions and responding to each one with the information I have gathered or the action I have taken.\n\nLet's get started!"
             ]
         ]
-        messages = []
-        messages.append(user_input)
-        
+        messages = [user_input]
         """Generate a response based on user input using palm."""
         defaults = {
-        'model': 'models/chat-bison-001',
-        'temperature': 0.6,
-        'candidate_count': 1,
-        'top_k': 35,
-        'top_p': 0.85,
+            'model': 'models/chat-bison-001',
+            'temperature': 0.75,
+            'candidate_count': 1,
+            'top_k': 35,
+            'top_p': 0.75,
         }
-        
+
         response = palm.chat(
             **defaults,
             context=context,
             examples=examples,
             messages=messages,
-            )
+        )
 
         return response.last
 

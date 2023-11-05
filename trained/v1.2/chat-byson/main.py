@@ -14,7 +14,7 @@ from helper import is_user
 from palmai import palm_ai_instance  # Import the singleton instance from palmai.py
 
 # Load environment variables
-load_dotenv('/media/azzar/Betha/Download/project/telegram bot/yuna/yuna v1/chat mode/.env')
+load_dotenv('path_to_your_env_file')
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
