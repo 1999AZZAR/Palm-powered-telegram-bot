@@ -155,6 +155,12 @@ Overall, this flowchart encapsulates the seamless interaction between the user, 
 ```mermaid
 graph LR;
 
+style clusterUser fill:#4C1E1E,stroke:#2A1010,stroke-width:2px;
+style clusterBot fill:#6B2E2E,stroke:#421B1B,stroke-width:2px;
+style clusterBotHandler fill:#8C3E3E,stroke:#5F2828,stroke-width:2px;
+style clusterPalmai fill:#B45A5A,stroke:#844040,stroke-width:2px;
+style clusterDatabase fill:#E36B6B,stroke:#C04C4C,stroke-width:2px;
+
 subgraph clusterUser
   A[User] -->|Interacts with Telegram| B[Telegram Bot]
 end
