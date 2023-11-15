@@ -147,7 +147,7 @@ pydantic_core==2.10.1
 pydub==0.25.1
 PyExecJS==1.5.1
 PyGetWindow==0.0.9
-Pygments==2.14.0
+Pygments==2.15.0
 PyGObject==3.44.1
 pyjsparser==2.7.1
 PyJWT==2.6.0
