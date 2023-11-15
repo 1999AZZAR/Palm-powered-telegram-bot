@@ -19,7 +19,7 @@ Brotli==1.0.9
 browser-cookie3==0.19.1
 bs4==0.0.1
 cachetools==4.2.2
-certifi==2022.9.24
+certifi==2023.7.22
 cffi==1.15.1
 chardet==5.1.0
 charset-normalizer==2.1.1
