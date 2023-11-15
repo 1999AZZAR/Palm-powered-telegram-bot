@@ -2,11 +2,13 @@
 
 import os
 import requests
+import re
+
 from pydub import AudioSegment
 from gtts import gTTS
 from dotenv import load_dotenv
 
-load_dotenv('path_to_your_env_file')
+load_dotenv('.env')
 
 class Helper:
     def is_user(self, user_id):
@@ -24,9 +26,9 @@ class Helper:
         }
         try:
             request_result = requests.get(url, headers=headers).json()
-            translation = request_result[0][0]
+            user_input = request_result[0][0]
             user_lang = request_result[0][1]
-            return translation, user_lang
+            return user_input, user_lang
         except:
             return user_input, 'en'
 
@@ -38,37 +40,50 @@ class Helper:
             }
             try:
                 request_result = requests.get(url, headers=headers).json()
-                translation = request_result[0]
-                return translation, user_lang
+                response = request_result[0]
+                return response, user_lang
             except:
                 return response, user_lang
         else:
             return response, user_lang
 
     def tts(self, last_response):
-        if last_response[0] is not None:
-            try:
-                if last_response[1] is not None:
-                    if last_response[1] != 'en':
-                        user_lang = last_response[1]
-                        text = last_response[0]
-                        tts = gTTS(text=text, lang=user_lang, slow=False)
-                    else:
-                        text = last_response[0]
-                        tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
-                else:
-                    text = last_response[0]
-                    tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
-            except:
+        if last_response is not None:
+            if last_response[1] is not None:
+                user_lang = last_response[1]
                 text = last_response[0]
-                tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
-        if last_response[0] is None:
-            text = "There has been no response prior to this moment."
+            if last_response[1] is None:
+                user_lang = 'en'
+                text = last_response[0]
+        if last_response is None:
+            user_lang = 'en'
+            text = "There has been no response at the moment."
+
+        # Remove and Exclude specific characters from the text
+        dev_pattern = r'\[\d+\]:\s+https?://\S+\s+""\n'
+        text = re.sub(dev_pattern, '', text)
+        url_pattern = r"https?://\S+|www\.\S+|http?://\S+"
+        text = re.sub(url_pattern, '', text)
+        pattern = r'\[\^\d+\^\] \[\d+\]'
+        text = re.sub(pattern, '', text)
+        excluded_characters = "`#$^<>*_/\\{}[]|~"
+        text = text.translate(str.maketrans('', '', excluded_characters))
+        text = re.sub(r'\s+', ' ', text)
+
+        # Generate TTS audio with user-specific filenames
+        if user_lang != 'en':
+            tts = gTTS(text=text, lang=user_lang, slow=False)
+        elif user_lang != 'ja':
+            text = re.sub(r'[^\x00-\x7F]+', '', text)
+            tts = gTTS(text=text, lang=user_lang, slow=False)
+        else:
             tts = gTTS(text=text, lang='en', tld='co.uk', slow=False)
-        tts.save('response.mp3')
-        audio = AudioSegment.from_file("response.mp3", format="mp3")
-        speedup = audio.speedup(playback_speed=1.22)
-        speedup.export("voice.mp3", format="mp3")
-        os.remove('response.mp3')
+        tts.save(f'voice_raw.mp3')
+
+        # speedup the generated tts
+        audio = AudioSegment.from_file(f"voice_raw.mp3", format="mp3")
+        audio = audio.speedup(playback_speed=1.22)
+        audio.export(f'voice.mp3', format="mp3")
+        os.remove(f'voice_raw.mp3')
 
 helper_code = Helper()
