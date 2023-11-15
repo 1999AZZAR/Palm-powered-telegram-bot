@@ -11,7 +11,8 @@ Yuna Ishikawa is an advanced Telegram chatbot powered by [Palm AI's generative l
 5. [Usage](#usage)
 6. [Components](#components)
 7. [Data Management](#data-management)
-8. [Acknowledgments](#acknowledgments)
+8. [Flowchart](#flowchart)
+9. [Acknowledgments](#acknowledgments)
 
 ## Introduction
 
@@ -119,6 +120,102 @@ Handles the SQLite database for storing and retrieving user interactions. The Da
 ## Data Management
 
 User interactions are stored in a SQLite database, with each user having a dedicated table. The `DatabaseManager` class facilitates the creation, storage, and retrieval of user-specific data, enhancing the overall user experience.
+
+## Flowchart
+
+The flowchart illustrates the interaction flow within the Telegram bot system. Here's a brief description of the key components and their interactions:
+
+1. **User Cluster:**
+   - The user interacts with the Telegram bot.
+   - Messages and commands are sent to the Telegram Bot (`BotHandler`).
+
+2. **Bot Cluster:**
+   - The Telegram Bot (`BotHandler`) processes received messages and commands.
+
+3. **BotHandler Cluster:**
+   - Manages user authorization and interactions.
+   - Forwards commands to `Palmai` for response generation.
+   - Utilizes `Helper` for tasks like translation and Text-to-Speech (TTS).
+   - Communicates with `DatabaseManager` for storing and retrieving user data.
+
+4. **Palmai Cluster:**
+   - Generates chat responses (`generate_chat`) and text responses (`generate_text`) based on user commands.
+
+5. **Database Cluster:**
+   - `DatabaseManager` handles data storage and retrieval using SQLite.
+   - Manages user-specific tables for storing responses and language information.
+
+6. **Flow Summary:**
+   - User commands flow from the Telegram interface to the `BotHandler`.
+   - `BotHandler` coordinates with `Palmai` for response generation and interacts with the database through `DatabaseManager`.
+   - Responses are translated and sent back to the user via the Telegram Bot.
+
+Overall, this flowchart encapsulates the seamless interaction between the user, the Telegram bot, and the backend components responsible for processing commands, generating responses, and managing user data.
+
+```mermaid
+graph LR;
+
+subgraph clusterUser
+  A[User] -->|Interacts with Telegram| B[Telegram Bot]
+end
+
+subgraph clusterBot
+  B -->|Receives messages/commands| C[BotHandler]
+end
+
+subgraph clusterBotHandler
+  C -->|Processes messages and commands| D[Helper]
+  D -->|Manages user authorization and interactions| E[Palmai]
+  E -->|Handles translation and TTS| F[DatabaseManager]
+end
+
+subgraph clusterPalmai
+  E -->|Generates chat responses| G[Palmai.generate_chat]
+  E -->|Generates text responses| H[Palmai.generate_text]
+end
+
+subgraph clusterDatabase
+  F -->|Manages data storage and retrieval| I[SQLite Database]
+end
+
+B -->|User sends command| C
+C -->|Identifies command type and user ID| D
+D -->|Manages user authorization and interaction| E
+E --> F
+F -->|Manages data storage and retrieval| I
+I -->|Stores and retrieves user data| F
+
+C -->|Processes /start command| J[BotHandler.start]
+J -->|Sends welcome message| B
+
+C -->|Processes /help command| K[BotHandler.help_command]
+K -->|Displays command list and descriptions| B
+
+C -->|Processes /paraphrase command| L[BotHandler.paraphrase]
+L -->|Handles user input and interacts with Palmai| E
+E -->|Generates paraphrased response| G
+G -->|Translates and sends response| B
+
+C -->|Processes /summarize command| M[BotHandler.summarize]
+M -->|Handles user input and interacts with Palmai| E
+E -->|Generates summarized response| G
+G -->|Translates and sends response| B
+
+C -->|Processes /elaborate command| N[BotHandler.elaborate]
+N -->|Handles user input and interacts with Palmai| E
+E -->|Generates elaborate response| G
+G -->|Translates and sends response| B
+
+C -->|Processes /detailed command| O[BotHandler.detailed]
+O -->|Handles user input and interacts with Palmai| E
+E -->|Generates detailed response| G
+G -->|Translates and sends response| B
+
+C -->|Processes /simple command| P[BotHandler.simple]
+P -->|Handles user input and interacts with Palmai| E
+E -->|Generates simple response| G
+G -->|Translates and sends response| B
+```
 
 ## Acknowledgments
 
