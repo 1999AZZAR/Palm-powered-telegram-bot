@@ -140,7 +140,7 @@ pycairo==1.20.1
 pycodestyle==2.11.1
 pycparser==2.21
 pycryptodome==3.19.1
-pycryptodomex==3.19.0
+pycryptodomex==3.19.1
 pycups==2.0.1
 pydantic==2.4.2
 pydantic_core==2.10.1
